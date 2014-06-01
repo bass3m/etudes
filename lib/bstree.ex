@@ -25,6 +25,15 @@ defmodule BSTree do
     new(new_item)
   end
 
-  # delete item
-  # get all items
+  def traverse(:inorder,tree) when tree == nil do
+  end
+
+  def traverse(:inorder, %BSTree{item: item,
+                                 left: left,
+                                 right: right} = tree) do
+    traverse(:inorder,left)
+    IO.puts("Item : #{item}")
+    traverse(:inorder,right)
+  end
+
 end
