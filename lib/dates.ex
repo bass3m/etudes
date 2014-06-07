@@ -31,7 +31,7 @@ defmodule Dates do
       total
     end
   end
-
+  # stolen from Oreilly's site
   defp is_leap_year(year) do
     (rem(year,4) == 0 and rem(year,100) != 0)
     or (rem(year, 400) == 0)
