@@ -28,7 +28,18 @@ defmodule Stats do
     end
 
     def mean(list) do
-      sum = List.foldl(list,0,fn(n,acc)->n + acc end)
+      sum = sum(list)
       sum/length(list)
+    end
+
+    def sum(list) do
+      List.foldl(list,0,fn(n,acc)->n + acc end)
+    end
+
+    def stdv(list) do
+      n = length(list)
+      sum_squares_n = n * (Enum.map(list,fn(n)->n*n end) |> sum)
+      sum_list = sum(list)
+      :math.sqrt((sum_squares_n - sum_list * sum_list)/(n*(n-1)))
     end
 end
