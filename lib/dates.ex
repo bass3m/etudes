@@ -12,7 +12,7 @@ defmodule Dates do
   @doc """
   Converts a date string to the number of day in the year
   """
-  def julian(date_string) do
+  def julian_old(date_string) do
     days_in_month = [31,28,31,30,31,30,31,31,30,31,30,31]
     [year,month,day] = date_parts(date_string)
     # why the -2 ? : we don't count the last day in the current month
@@ -21,6 +21,16 @@ defmodule Dates do
     0..month-2
     |> Enum.into([])
     |> List.foldl(day,fn (d,acc) -> acc + Enum.at(days_in_month,d) end)
+    |> add_leap_day(year)
+  end
+
+  def julian(date_string) do
+    days_in_month = [31,28,31,30,31,30,31,31,30,31,30,31]
+    [year,month,day] = date_parts(date_string)
+    days_in_month
+    |> Enum.split(month-1)
+    |> elem(0)
+    |> List.foldl(day,fn (d,acc) -> acc + d end)
     |> add_leap_day(year)
   end
 
