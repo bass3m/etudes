@@ -6,15 +6,23 @@ defmodule Cards do
     for r <- @ranks, s <- suites, do: {r,s}
   end
 
-  defp card_index({rank,_} = card) do
+  def card_index({rank,_} = _card) do
     @ranks
     |> Enum.with_index
-    |> Enum.find(fn({r,index})-> r == rank end)
+    |> Enum.find(fn({r,_index})-> r == rank end)
     |> elem(1)
   end
 
   def card_compare(card1,card2) do
     card_index(card1) > card_index(card2)
+  end
+
+  def cards_equal?(card1,card2) do
+    card_index(card1) == card_index(card2)
+  end
+
+  def is_higher_rank?(card1,card2) do
+    card_compare(card1,card2)
   end
 
   @doc """
