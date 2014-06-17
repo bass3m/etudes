@@ -33,8 +33,12 @@ defmodule Stats do
     end
 
     def mean(list) do
-      sum = sum(list)
-      sum/length(list)
+      try do
+        sum = sum(list)
+        sum/length(list)
+      rescue
+        err -> err
+      end
     end
 
     def sum(list) do
