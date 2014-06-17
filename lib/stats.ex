@@ -46,9 +46,13 @@ defmodule Stats do
     end
 
     def stdv(list) do
-      n = length(list)
-      sum_squares_n = n * (Enum.map(list,fn(n)->n*n end) |> sum)
-      sum_list = sum(list)
-      :math.sqrt((sum_squares_n - sum_list * sum_list)/(n*(n-1)))
+      try do
+        n = length(list)
+        sum_squares_n = n * (Enum.map(list,fn(n)->n*n end) |> sum)
+        sum_list = sum(list)
+        :math.sqrt((sum_squares_n - sum_list * sum_list)/(n*(n-1)))
+      rescue
+        err -> err
+      end
     end
 end
