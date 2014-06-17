@@ -1,6 +1,11 @@
 defmodule Stats do
-    def minimum([h | t]) do
-      minimum(t,h)
+    #def minimum([h | t] = list) do
+    def minimum(list) do
+      try do
+        minimum(tl(list),hd(list))
+      rescue
+        err -> err
+      end
     end
     def minimum([],min_so_far), do: min_so_far
     def minimum([h | t],min_so_far) do
