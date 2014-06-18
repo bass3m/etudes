@@ -21,15 +21,12 @@ defmodule War do
                     |> Cards.shuffle
                     |> Enum.slice(0..deck_size-1)
                     |> Enum.split(Float.floor(deck_size/num_players))
-    IO.puts("Deck is #{inspect player_decks}")
     players = Enum.map(0..num_players-1,
                        fn(n) -> %{pid: spawn(__MODULE__,
                                              :player_loop,
                                              [dealer,elem(player_decks,n)]),
                                   cards: []} end)
-    IO.puts("Starting dealer with players #{inspect players}")
     dealer_loop(%War{players: players, waiting_on: num_players})
-    IO.puts("Dealer loop ends")
   end
 
   # when we're at war we take 3 cards otherwise just 1 card
