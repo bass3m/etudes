@@ -42,25 +42,18 @@ defmodule War do
     cond do
       cards_equal?(h1,h2) ->
         IO.puts("Cards equal #{inspect h1} and #{inspect h2}")
-        IO.puts("cards1 #{inspect cards1} cards2 #{inspect cards2} pile #{inspect pile}")
-        #dealer_loop(%War{card_pile: pile ++ cards1 ++ cards2,
         dealer_loop(%War{card_pile: Enum.concat([pile,cards1,cards2]),
                          game_state: :war,
                          players: [%{pid: pid1, cards: []},
                                    %{pid: pid2, cards: []}]})
       is_higher_rank?(h1,h2) ->
         IO.puts("Player 1 wins #{inspect h1} of #{inspect h2}")
-        IO.puts("cards1 #{inspect cards1} cards2 #{inspect cards2} pile #{inspect pile}")
-        # just send pile to winning player
-        #send(pid1, {:take_cards, pile ++ cards1 ++ cards2})
         send(pid1, {:take_cards, Enum.concat([pile,cards1,cards2])})
         dealer_loop(%War{game_state: :init,
                          players: [%{pid: pid1, cards: []},
                                    %{pid: pid2, cards: []}]})
       true ->
         IO.puts("Player 2 wins #{inspect h2} of #{inspect h1}")
-        IO.puts("cards1 #{inspect cards1} cards2 #{inspect cards2} pile #{inspect pile}")
-        #send(pid2, {:take_cards, pile ++ cards1 ++ cards2})
         send(pid2, {:take_cards, Enum.concat([pile,cards1,cards2])})
         dealer_loop(%War{game_state: :init,
                          players: [%{pid: pid1, cards: []},
