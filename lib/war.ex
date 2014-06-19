@@ -63,7 +63,7 @@ defmodule War do
 
   def dealer_loop(%War{players: players,
                        game_state: state} = war) when state == :init or state == :war do
-    IO.puts("Dealer loop ask for card : #{inspect cards_to_give(state)}")
+    #IO.puts("Dealer loop ask for card : #{inspect cards_to_give(state)}")
     Enum.each(players,
               fn(%{pid: p}) -> send(p, {:give_cards, cards_to_give(state)}) end)
     wait_for_player_cards(war)
@@ -84,7 +84,7 @@ defmodule War do
                                  waiting_on: num} = war) do
     receive do
       {:i_lost, player} ->
-        IO.puts("player lost #{inspect player}")
+        IO.puts("player #{inspect player} lost")
       {:take_cards, player, []} ->
         IO.puts("Dealer got empty cards from player #{inspect player} player loses")
       {:take_cards, ^pid1, cards} ->
@@ -104,7 +104,7 @@ defmodule War do
     IO.puts("Player #{inspect self()} loop with a deck of #{inspect deck}")
     receive do
       {:give_cards, _num_cards} when deck == [] ->
-        IO.puts("Player i lost #{inspect self()}")
+        IO.puts("I lost #{inspect self()}")
         send(dealer,{:i_lost, self()})
       {:give_cards, num_cards} ->
         IO.puts("Player #{inspect self()} rcvd give new cards #{inspect num_cards}")
@@ -116,7 +116,7 @@ defmodule War do
         IO.puts("Player #{inspect self()} rcvd new cards #{inspect new_cards}")
         player_loop(dealer,deck ++ new_cards)
       msg ->
-        IO.puts("Player rcvd an unexpected message #{inspect msg}")
+        IO.puts("Player #{inspect self()} rcvd an unexpected message #{inspect msg}")
     end
   end
 end
