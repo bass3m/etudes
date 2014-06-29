@@ -24,4 +24,10 @@ defmodule Duration do
       end
     end
   end
+
+  defmacro a + b do
+    quote do
+      unquote(a) + unquote(b)
+    end
+  end
 end
