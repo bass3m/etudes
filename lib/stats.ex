@@ -1,5 +1,7 @@
 defmodule Stats do
-    #def minimum([h | t] = list) do
+    @moduledoc """
+    Basic stat functions
+    """
     def minimum(list) do
       try do
         minimum(tl(list),hd(list))
