@@ -1,6 +1,16 @@
 defmodule Stats do
     @moduledoc """
     Basic stat functions
+    iex(2)> data = [4, 1, 7, -17, 8, 2, 5]
+    [4,1,7,-17,8,2,5]
+    iex(3)> Stats.minimum(data)
+    -17
+    iex(4)> Stats.minimum([52, 46])
+    46
+    iex(5)> Stats.maximum(data)
+    8
+    iex(6)> Stats.range(data)
+    [-17,8]
     """
     def minimum(list) do
       try do
