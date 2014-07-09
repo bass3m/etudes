@@ -2,6 +2,12 @@ defmodule Duration do
   @moduledoc """
   Tuples represent a duration of time in minutes and seconds
   add takes two tuples as arguments and returns the total duration
+  iex(1)> require Duration
+  nil
+  iex(2)> Duration.add({2,15},{3,12})
+  {5,27}
+  iex(3)> Duration.add({2,45},{3,22})
+  {6,7}
   """
   defmacro add({m1,s1},{m2,s2}) do
     quote do
