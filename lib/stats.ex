@@ -52,7 +52,11 @@ defmodule Stats do
         err -> err
       end
     end
-
+    
+    @doc """
+    Compute the sum of a list of numbers. Uses
+    List.foldl/3 with a tuple as an accumulator.
+    """
     def sum(list) do
       List.foldl(list,0,fn(n,acc)->n + acc end)
     end
