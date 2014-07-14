@@ -20,6 +20,14 @@ defmodule Duration do
     end
   end
 
+  @doc """
+  iex(1)> require Duration
+  nil
+  iex(2)> Duration.+({1, 27}, {2, 44})
+  {4,11}
+  iex(3)> Kernel.+(7, 5)
+  12
+  """
   defmacro {m1,s1} + {m2,s2} do
     quote do
       total_secs = unquote(s1) + unquote(s2)
